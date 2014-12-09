@@ -1,0 +1,219 @@
+﻿{
+    "stops": [
+        {
+            "stop_no": "3017",
+            "routes": [
+                {
+                    "route_no": "77",
+                    "trips": [
+                        {
+                            "StopLabel": "BASELINE",
+                            "Direction": "Inbound",
+                            "RouteLabel": "Downtown / Ctre-ville",
+                            "StopNo": "3017",
+                            "RouteNo": "77",
+                            "RequestProcessingTime": "20141202091112",
+                            "tripsForStop": []
+                        },
+                        {
+                            "StopLabel": "BASELINE",
+                            "Direction": "Outbound",
+                            "RouteLabel": "Barrhaven",
+                            "StopNo": "3017",
+                            "RouteNo": "77",
+                            "RequestProcessingTime": "20141202091112",
+                            "tripsForStop": []
+                        }
+                    ]
+                },
+                {
+                    "route_no": "94",
+                    "trips": [
+                        {
+                            "StopLabel": "BASELINE",
+                            "Direction": "Westbound",
+                            "RouteLabel": "Riverview",
+                            "StopNo": "3017",
+                            "RouteNo": "94",
+                            "RequestProcessingTime": "20141202091113",
+                            "tripsForStop": [
+                                {
+                                    "AdjustedScheduleTime": "11",
+                                    "AdjustmentAge": "0.47",
+                                    "TripDestination": "Riverview",
+                                    "TripStartTime": "08:07",
+                                    "LastTripOfSchedule": "false",
+                                    "BusType": "6EB - 60",
+                                    "Latitude": "45.400878",
+                                    "Longitude": "-75.741728",
+                                    "GPSSpeed": "66.4"
+                                },
+                                {
+                                    "AdjustedScheduleTime": "29",
+                                    "AdjustmentAge": "0.48",
+                                    "TripDestination": "Riverview",
+                                    "TripStartTime": "08:26",
+                                    "LastTripOfSchedule": "false",
+                                    "BusType": "6EB - 60",
+                                    "Latitude": "45.416758",
+                                    "Longitude": "-75.671446",
+                                    "GPSSpeed": "26.8"
+                                },
+                                {
+                                    "AdjustedScheduleTime": "47",
+                                    "AdjustmentAge": "0.80",
+                                    "TripDestination": "Riverview",
+                                    "TripStartTime": "08:44",
+                                    "LastTripOfSchedule": "false",
+                                    "BusType": "6EB - 60",
+                                    "Latitude": "45.428197",
+                                    "Longitude": "-75.573272",
+                                    "GPSSpeed": "52.3"
+                                }
+                            ]
+                        },
+                        {
+                            "StopLabel": "BASELINE",
+                            "Direction": "Eastbound",
+                            "RouteLabel": "Millennium",
+                            "StopNo": "3017",
+                            "RouteNo": "94",
+                            "RequestProcessingTime": "20141202091113",
+                            "tripsForStop": [
+                                {
+                                    "AdjustedScheduleTime": "5",
+                                    "AdjustmentAge": "-1",
+                                    "TripDestination": "Blair",
+                                    "TripStartTime": "09:16",
+                                    "LastTripOfSchedule": "false",
+                                    "BusType": "4E - DEH",
+                                    "Latitude": "",
+                                    "Longitude": "",
+                                    "GPSSpeed": ""
+                                },
+                                {
+                                    "AdjustedScheduleTime": "10",
+                                    "AdjustmentAge": "0.47",
+                                    "TripDestination": "Millennium",
+                                    "TripStartTime": "08:58",
+                                    "LastTripOfSchedule": "false",
+                                    "BusType": "6EB - 60",
+                                    "Latitude": "45.297788",
+                                    "Longitude": "-75.734752",
+                                    "GPSSpeed": "28.0"
+                                },
+                                {
+                                    "AdjustedScheduleTime": "21",
+                                    "AdjustmentAge": "-1",
+                                    "TripDestination": "Blair",
+                                    "TripStartTime": "09:32",
+                                    "LastTripOfSchedule": "false",
+                                    "BusType": "4L - IN",
+                                    "Latitude": "",
+                                    "Longitude": "",
+                                    "GPSSpeed": ""
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "route_no": "95",
+                    "trips": [
+                        {
+                            "StopLabel": "BASELINE",
+                            "Direction": "Eastbound",
+                            "RouteLabel": "Orléans",
+                            "StopNo": "3017",
+                            "RouteNo": "95",
+                            "RequestProcessingTime": "20141202091113",
+                            "tripsForStop": [
+                                {
+                                    "AdjustedScheduleTime": "1",
+                                    "AdjustmentAge": "0.55",
+                                    "TripDestination": "Trim",
+                                    "TripStartTime": "08:50",
+                                    "LastTripOfSchedule": "false",
+                                    "BusType": "6EB - 60",
+                                    "Latitude": "45.343787",
+                                    "Longitude": "-75.757612",
+                                    "GPSSpeed": "46.7"
+                                },
+                                {
+                                    "AdjustedScheduleTime": "5",
+                                    "AdjustmentAge": "0.82",
+                                    "TripDestination": "Trim",
+                                    "TripStartTime": "08:59",
+                                    "LastTripOfSchedule": "false",
+                                    "BusType": "6EB - 60",
+                                    "Latitude": "45.319490",
+                                    "Longitude": "-75.743758",
+                                    "GPSSpeed": "78.6"
+                                },
+                                {
+                                    "AdjustedScheduleTime": "12",
+                                    "AdjustmentAge": "1.00",
+                                    "TripDestination": "Place d'Orléans",
+                                    "TripStartTime": "09:04",
+                                    "LastTripOfSchedule": "false",
+                                    "BusType": "6EB - 60",
+                                    "Latitude": "45.285029",
+                                    "Longitude": "-75.747123",
+                                    "GPSSpeed": "47.8"
+                                }
+                            ]
+                        },
+                        {
+                            "StopLabel": "BASELINE",
+                            "Direction": "Westbound",
+                            "RouteLabel": "Barrhaven Centre",
+                            "StopNo": "3017",
+                            "RouteNo": "95",
+                            "RequestProcessingTime": "20141202091113",
+                            "tripsForStop": [
+                                {
+                                    "AdjustedScheduleTime": "5",
+                                    "AdjustmentAge": "0.54",
+                                    "TripDestination": "Barrhaven Centre",
+                                    "TripStartTime": "08:20",
+                                    "LastTripOfSchedule": "false",
+                                    "BusType": "6EB - 60",
+                                    "Latitude": "45.367319",
+                                    "Longitude": "-75.782964",
+                                    "GPSSpeed": "0.5"
+                                },
+                                {
+                                    "AdjustedScheduleTime": "20",
+                                    "AdjustmentAge": "0.82",
+                                    "TripDestination": "Barrhaven Centre",
+                                    "TripStartTime": "08:35",
+                                    "LastTripOfSchedule": "false",
+                                    "BusType": "6EAB - 60",
+                                    "Latitude": "45.420155",
+                                    "Longitude": "-75.699827",
+                                    "GPSSpeed": "0.5"
+                                },
+                                {
+                                    "AdjustedScheduleTime": "31",
+                                    "AdjustmentAge": "0.80",
+                                    "TripDestination": "Barrhaven Centre",
+                                    "TripStartTime": "08:45",
+                                    "LastTripOfSchedule": "false",
+                                    "BusType": "6EB - 60",
+                                    "Latitude": "45.416409",
+                                    "Longitude": "-75.654471",
+                                    "GPSSpeed": "55.4"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "stop_name": "BASELINE 1A",
+            "stop_id": "",
+            "stop_code": "3017",
+            "stop_lat": "45.348133",
+            "stop_lng": "-75.761436"
+        }
+    ]
+}

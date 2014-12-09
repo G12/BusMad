@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link href='http://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>
+        <title>Bus Man</title>
+        <style type="text/css">
+            #start_up_page{
+                height:800px;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div id="wait_window"><img id="crawling_ant" alt="Busy!" src="img/crawling_ant.gif" />
+            <div class="bus_route" id="wait_msg">Page Loaded</div>
+            <button class="hide" id="cancel_wait">Cancel</button>
+        </div>
+        <div id="start_up_page" class="hide">
+            <p>You are presently off line and can not do much at this time.</p>
+            <p>Come back later when you have a network connection.</p>
+            <img src="img/QuiltingDreams.png" />
+        </div>
+        <div id="map_canvas"></div>
+        <div id="bus_list"></div>
+        <div id="status_page">
+            <button id="map_btn">Back</button>
+            <button id="refresh_btn">Refresh</button>
+            <div id="status_list"></div>
+        </div>
+
+        <!--
+        <div id="menu_bar" style="float:left">
+            <textarea id="json_text" style="height:400px; width:200px"></textarea>
+        </div>
+        -->
+        <script src="js/jquery-2.1.1.min.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1InXxmyZWGfqX28lKs_FFlLziBNSGE0s&sensor=false&libraries=geometry"></script>
+
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js?0.01"></script>
+        <script src="js/maplabel.js" type="text/javascript"></script>
+        <script src="js/SurrealRanch_Markers.js" type="text/javascript"></script>
+        <script src="js/SurrealRanch_Controls.js" type="text/javascript"></script>
+        <script src="js/SurrealRanch_Collections.js" type="text/javascript"></script>
+        <script src="js/SurrealRanch_Routes.js" type="text/javascript"></script>
+        <script src="js/SurrealRanch_Controller.js" type="text/javascript"></script>
+        <script src="js/startup.js" type="text/javascript"></script>
+        <script src="js/statusPage.js" type="text/javascript"></script>
+        <script src="js/busListPage.js" type="text/javascript"></script>
+    </body>
+</html>
