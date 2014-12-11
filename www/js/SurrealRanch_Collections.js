@@ -180,7 +180,27 @@ var SurrealRanch_Collections = (function()
 			this.buses[i].Draw(0); //TODO why are there only one routes?
 		}
 	}
-	
+
+	BusList.prototype.getStopCode = function (index)
+	{
+	    if (this.buses.length > index && index >= 0)
+	    {
+	        var obj = this.buses[index];
+	        return obj.stop_code;
+	    }
+	    return "";
+	}
+
+	BusList.prototype.getBusNumber = function (index)
+	{
+	    if (this.buses.length > index && index >= 0)
+	    {
+	        var obj = this.buses[index];
+	        return obj.route_number;
+	    }
+	    return "";
+	}
+
 	//Deprecated
 	BusList.prototype.makeTripString = function()
 	{

@@ -11,6 +11,10 @@
                         {
                             "xml": "<permission description=\"Required for accessing user location.\" name=\"geolocation\" />",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Device\"><param name=\"firefoxos-package\" value=\"Device\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -23,6 +27,9 @@
         },
         "org.apache.cordova.network-information": {
             "PACKAGE_NAME": "ca.madmadworld.busmad"
+        },
+        "org.apache.cordova.device": {
+            "PACKAGE_NAME": "ca.madmadworld.busman"
         }
     },
     "dependent_plugins": {}

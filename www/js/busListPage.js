@@ -75,15 +75,5 @@ var busListPage = {
         else {
             document.getElementById(route_number + '_' + stop_id + '_' + headsign_id).style.backgroundColor = '#FFFFFF';
         }
-        if (controller.bus_list.buses.length) {
-            var btn1 = document.getElementById('ok1')
-            btn1.style.color = 'black';
-            btn1.disabled = false;
-        }
-        else {
-            var btn1 = document.getElementById('ok1')
-            btn1.style.color = 'white';
-            btn1.disabled = true;
-        }
     }
 };

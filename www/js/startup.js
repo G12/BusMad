@@ -8,6 +8,8 @@ var startUpPage = {
     bus_list: null,
     status_page: null,
     map_btn: null,
+    stop_number: null,
+    bus_number: null,
     _networkState: null,
     _states: null,
     _current_page: null,
@@ -28,6 +30,8 @@ var startUpPage = {
         this.application_status = document.getElementById("application_status");
         this.map_btn = document.getElementById("map_btn");
         this.start_up_page = document.getElementById(start_up_page_id);
+        this.stop_number = document.getElementById("stop_number");
+        this.bus_number = document.getElementById("bus_number");
         //this.start_up_page.className = "hide";
         this.map_canvas = document.getElementById(map_canvas_id);
         this.bus_list = document.getElementById(bus_list_id);
@@ -77,7 +81,8 @@ var startUpPage = {
     },
     commingOnLine: function ()
     {
-        this.application_status.innerHTML = "";
+        //this.application_status.innerHTML = "";
+        this.application_status.innerHTML = "Platform: " + g_platform;
         this.openPage(this._current_page);
     },
     checkConnection: function()
@@ -87,5 +92,14 @@ var startUpPage = {
         {
             this.goingOffLine();
         }
+    },
+    setStopNumber: function(stop_code)
+    {
+        this.stop_number.value = stop_code;
+    },
+    setBusNumber: function(bus_number)
+    {
+        this.bus_number.value = bus_number;
     }
+
 };

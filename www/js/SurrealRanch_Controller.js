@@ -15,6 +15,7 @@
 		this.document_width;
 		this.document_height;
 		this.text_mode = false;
+		this.allowZoomUpdate = true;
 	}
 	Controller.prototype = new google.maps.MVCObject;
 	Controller.prototype.startGeoLocation = function(debug)
@@ -70,11 +71,14 @@
 		var lon_low = this.initialLatLng.lng() - n;
 		var lon_high = this.initialLatLng.lng() + n;
 
-		this.drawStops(lat_low, lat_high, lon_low, lon_high, false);
+		this.drawStops(lat_low, lat_high, lon_low, lon_high, false, false);
 		
 		google.maps.event.addListener(this.map, 'zoom_changed', function()
 		{
-		    self.stop_list.ZoomChanged(); //self.zoom_level);
+		    if (self.allowZoomUpdate)
+		    {
+		        self.stop_list.ZoomChanged(); //self.zoom_level);
+		    }
 		});
 
         //TODO add more stops when bounds change
@@ -91,12 +95,22 @@
 		return this.map;
 	}
 
-	Controller.prototype.forceZoomUpdate = function()
+	Controller.prototype.getStopCodeFor = function(index)
+	{
+	    return this.bus_list.getStopCode(index);
+	}
+
+	Controller.prototype.getBusNumberFor = function (index)
+	{
+	    return this.bus_list.getBusNumber(index);
+	}
+
+	Controller.prototype.forceZoomUpdate = function ()
 	{
 	    this.stop_list.ZoomChanged(); //zoomLevel);
 	}
 
-	Controller.prototype.drawStops = function (lat_low, lat_high, lon_low, lon_high, isAdding)
+	Controller.prototype.drawStops = function (lat_low, lat_high, lon_low, lon_high, isAdding, forceZoomUpdate)
 	{
 	    self = this;
 	    var url = "http://geopad.ca/js/get_json_for.php?lat_low=" + lat_low + "&lat_high=" + lat_high + "&lon_low=" + lon_low + "&lon_high=" + lon_high + "&city_code=" + city_code;
@@ -105,8 +119,11 @@
 	        if (isAdding)
 	        {
 	            //set the markers to right size
-                //TODO 
-	            self.forceZoomUpdate();
+	            //TODO 
+	            if (forceZoomUpdate)
+	            {
+	                self.forceZoomUpdate();
+	            }
 	        }
 	        else {
 	            //After all stop markers are drawn
