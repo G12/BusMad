@@ -14,7 +14,6 @@
 		this.map_canvas;
 		this.document_width;
 		this.document_height;
-		this.wait_window;
 		this.text_mode = false;
 	}
 	Controller.prototype = new google.maps.MVCObject;
@@ -25,12 +24,10 @@
 	Controller.prototype.quickInit = function (map_canvas, wait_window)
 	{
 	    this.map_canvas = document.getElementById(map_canvas);
-	    this.wait_window = document.getElementById(wait_window);
 	}
-	Controller.prototype.initialize = function(result, map_canvas, wait_window)
+	Controller.prototype.initialize = function(result, map_canvas) //, wait_window)
 	{
 	    this.map_canvas = document.getElementById(map_canvas);
-	    this.wait_window = document.getElementById(wait_window);
 	    var self = this;
 	    if(this.mode == "static")
 	    {
@@ -72,24 +69,12 @@
 		var lat_high = this.initialLatLng.lat() + n;
 		var lon_low = this.initialLatLng.lng() - n;
 		var lon_high = this.initialLatLng.lng() + n;
-		
-		document.getElementById("wait_msg").innerHTML = "Get OCTranspo Information";
-		var url = "http://geopad.ca/js/get_json_for.php?lat_low=" + lat_low + "&lat_high=" + lat_high + "&lon_low=" + lon_low + "&lon_high=" + lon_high + "&city_code=" + city_code;
-		$.get(url, {}, function(json)
-		{
-			self.stop_list.makeMarkers(json);
-			//After all stop markers are drawn
-			self.peg_marker.startWatch();
-		}).error(function(e)
-		{
-			$('#json_text').val("Ajax Error: " + e.statusText);
-		}).always(function () {
-		    document.getElementById("wait_msg").innerHTML = "";
-		});
 
+		this.drawStops(lat_low, lat_high, lon_low, lon_high, false);
+		
 		google.maps.event.addListener(this.map, 'zoom_changed', function()
 		{
-			self.stop_list.ZoomChanged(self.zoom_level);
+		    self.stop_list.ZoomChanged(); //self.zoom_level);
 		});
 
         //TODO add more stops when bounds change
@@ -106,6 +91,34 @@
 		return this.map;
 	}
 
+	Controller.prototype.forceZoomUpdate = function()
+	{
+	    this.stop_list.ZoomChanged(); //zoomLevel);
+	}
+
+	Controller.prototype.drawStops = function (lat_low, lat_high, lon_low, lon_high, isAdding)
+	{
+	    self = this;
+	    var url = "http://geopad.ca/js/get_json_for.php?lat_low=" + lat_low + "&lat_high=" + lat_high + "&lon_low=" + lon_low + "&lon_high=" + lon_high + "&city_code=" + city_code;
+	    $.get(url, {}, function (json) {
+	        self.stop_list.makeMarkers(json);
+	        if (isAdding)
+	        {
+	            //set the markers to right size
+                //TODO 
+	            self.forceZoomUpdate();
+	        }
+	        else {
+	            //After all stop markers are drawn
+	            self.peg_marker.startWatch();
+	        }
+	    }).error(function (e) {
+	        console.log("Ajax Error: " + e.statusText);
+	    }).always(function () {
+	        console.log("Done getting stop markers!")
+	        //Could send done event
+	    });
+	}
 	/**
 	*	Adds new Buses to bus_list
 	*	Updates info on current buses
@@ -150,18 +163,7 @@
 		}
 	}
 
-	Controller.prototype.showWaitWindow = function ()
-	{
-	    this.wait_window.style.zIndex = '9999';
-	    this.wait_window.className = "show";
-	}
-
-	Controller.prototype.hideWaitWindow = function()
-	{
-	    this.wait_window.style.zIndex = '0';
-	    this.wait_window.className = "hide";
-	}
-
+    /*
 	Controller.prototype.showMap = function () {
 	    this.map_canvas.className = "show";
 	}
@@ -169,6 +171,7 @@
 	Controller.prototype.hideMap = function () {
 	    this.map_canvas.className = "hide";
 	}
+    */
 
     /////////////////////////////////////// TripObject ///////////////////////////////////////////////
 	//

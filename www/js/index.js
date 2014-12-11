@@ -1,3 +1,8 @@
+/// <reference path="startup.js" />
+/// <reference path="statusPage.js" />
+/// <reference path="SurrealRanch_Controller.js" />
+
+
 /**
  * IM RJ TW
  */
@@ -8,9 +13,10 @@ var lng_in = -75.7598;
 var city_code = "oc";
 var mode = "dynamic";
 var zoom_level = 17;
-var wait_widow = "wait_window"
 
-var IS_QUIK = false;
+var map_initialized = false;
+var g_url = null;
+
 var IS_DEBUG = false;
 
 $(document).ready(function ()
@@ -28,68 +34,90 @@ $(document).ready(function ()
         statusPage.init("status_page", "status_list", "refresh_btn", "map_btn");
         busListPage.init("bus_list");
 
-        //Restart
-        document.getElementById("cancel_wait").addEventListener('click', function ()
+        google.maps.event.addListener(statusPage, 'make_status_done', function (status) {
+            if (status == "SUCCESS") {
+                startUpPage.openPage(STATUS_PAGE);
+            }
+            else {
+                alert(status);
+            }
+        });
+        //Open Home Page
+        document.getElementById("home_btn").addEventListener('click', function ()
         {
-            controller.startGeoLocation(IS_DEBUG);
-        }, false);
-
-        if (IS_QUIK)
+            startUpPage.openPage(HOME_PAGE);
+        });
+        //Open Status Page using current url
+        document.getElementById("status_btn").addEventListener('click', function ()
         {
-            controller = new SurrealRanch_Controller.Controller(lat_in, lng_in, city_code, mode, zoom_level, wait_widow);
-            controller.document_width = $(document).width();
-            controller.document_height = $(document).height();
-            controller.quickInit('map_canvas', 'wait_window');
-
-            var url = "http://geopad.ca/js/get_json_for.php?trips=3017b77_560b94_468b95_112";
-            statusPage.makeList(url);
-            google.maps.event.addListener(statusPage, 'make_status_done', function (status) {
-                controller.hideWaitWindow();
-                if (status == "SUCCESS") {
-                    //alert(status);
-                    controller.hideMap();
-                    statusPage.showPage();
-                }
-                else {
-                    alert(status);
-                }
-            });
-        }
-        else
-        {
-            controller = new SurrealRanch_Controller.Controller(lat_in, lng_in, city_code, mode, zoom_level, wait_widow);
-            controller.startGeoLocation(IS_DEBUG);
-            controller.document_width = $(document).width();
-            controller.document_height = $(document).height();
-
-            google.maps.event.addListener(controller.peg_marker, 'geolocation_error', function (errMsg) {
-                document.getElementById("wait_msg").innerHTML = errMsg;
-                document.getElementById("refresh_btn").className = "show";
-            });
-
-            google.maps.event.addListener(controller.peg_marker, 'geolocation_done', function(result)
+            //TODO HARD CODED
+            //statusPage.makeList(g_url);
+            if (startUpPage.getCurrentPage() == HOME_PAGE)
             {
-                google_map = controller.initialize(result, 'map_canvas', 'wait_window');
-
-                google.maps.event.addListener(controller, 'draw_routes_error', function(errMsg)
+                var stop = document.getElementById("stop_number").value;
+                var bus = document.getElementById("bus_number").value;
+                if (stop.length > 0 && bus.length > 0)
                 {
-                    controller.hideWaitWindow();
-                    alert(errMsg);
+                    var trips = stop + "b" + bus;
+                    g_url = "http://geopad.ca/js/get_json_for.php?trips=" + trips;
+                }
+                if(g_url)
+                {
+                    statusPage.makeList(g_url);
+                }
+            }
+            else
+            {
+                if (controller.bus_list.getLength() > 0)
+                {
+                    var trips = controller.bus_list.makeTripString();
+                    g_url = "http://geopad.ca/js/get_json_for.php?trips=" + trips;
+                    statusPage.makeList(g_url);
+                }
+            }
+        });
+        document.getElementById("map_btn").addEventListener('click', function ()
+        {
+            if (startUpPage.getCurrentPage() == MAP_PAGE)
+            {
+                LatLngBounds = google_map.getBounds();
+                ne = LatLngBounds.getNorthEast();
+                sw = LatLngBounds.getSouthWest();
+                //alert("NE lat-lng: " + ne.lat() + "-" + ne.lng() + " SW lat-lng: " + sw.lat() + "-" + sw.lng())
+                controller.drawStops(sw.lat(), ne.lat(), sw.lng(), ne.lng(), true);
+                //var zoomLevel = google_map.getZoom();
+                //controller.forceZoomUpdate();
+            }
+            else if (map_initialized)
+            {
+                startUpPage.openPage(MAP_PAGE);
+            }
+            else
+            {
+                startUpPage.setAppStatus("Getting Geographic information. Please wait.")
+                controller = new SurrealRanch_Controller.Controller(lat_in, lng_in, city_code, mode, zoom_level);
+                controller.startGeoLocation(IS_DEBUG);
+                controller.document_width = $(document).width();
+                controller.document_height = $(document).height();
+
+                google.maps.event.addListener(controller.peg_marker, 'geolocation_error', function (errMsg) {
+                    startUpPage.setAppStatus(errMsg);
+                    startUpPage.openPage(MAP_PAGE);
                 });
 
-                google.maps.event.addListener(statusPage, 'make_status_done', function (status) {
-                    controller.hideWaitWindow();
-                    if (status == "SUCCESS") {
-                        controller.hideMap();
-                        statusPage.showPage();
-                        document.getElementById("bus_list").className = "hide";
-                    }
-                    else {
-                        alert(status);
-                    }
+                google.maps.event.addListener(controller.peg_marker, 'geolocation_done', function (result)
+                {
+                    google_map = controller.initialize(result, 'map_canvas'); //, 'wait_window');
+                    google.maps.event.addListener(controller, 'draw_routes_error', function (errMsg) {
+                        controller.hideWaitWindow();
+                        alert(errMsg);
+                    });
+                    map_initialized = true;
+                    startUpPage.setAppStatus("");
+                    startUpPage.openPage(MAP_PAGE);
                 });
-            });
-        }
+            }
+        });
     });
 });
 

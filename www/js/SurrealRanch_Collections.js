@@ -24,9 +24,24 @@ var SurrealRanch_Collections = (function()
 		for(var i = 0; i < json.stops.length; i++)
 		{ 
 			var stop = json.stops[i];
-			var stop_marker = new SurealRanch.StopMarker(this.map, stop, this.current_index, this.city_code);
-			this.current_index = this.stops.push(stop_marker);
+			if (this.isUnique(stop.stop_id))
+			{
+			    var stop_marker = new SurealRanch.StopMarker(this.map, stop, this.current_index, this.city_code);
+			    this.current_index = this.stops.push(stop_marker);
+			}
 		}
+	};
+
+	StopList.prototype.isUnique = function (stop_id)
+	{
+	    for (var i = 0; i < this.stops.length; i++)
+	    {
+	        if (stop_id == this.stops[i].stop_id)
+	        {
+	            return false;
+	        }
+	    }
+	    return true;
 	};
 
 	StopList.prototype.getAt = function(index)
@@ -49,11 +64,10 @@ var SurrealRanch_Collections = (function()
 		}
 	};
 
-	StopList.prototype.ZoomChanged = function(zoom_level)
+	StopList.prototype.ZoomChanged = function()
 	{
 		var w = 16, h = 18; 
 	    var zoom = this.map.getZoom();
-		zoom_level = zoom;
 		
 		if(zoom >= 17){	w = 32, h = 37; }
 	    if(zoom < 17){ w = 24, h = 27; }
@@ -67,7 +81,7 @@ var SurrealRanch_Collections = (function()
 		    //change the size of the icon
 		    this.stops[i].setIcon(w, h);
 		}
-		return zoom_level;
+		return zoom;
 	};
 
 	////////////////////////////////////////// Bus List ///////////////////////////////////////
@@ -193,6 +207,11 @@ var SurrealRanch_Collections = (function()
 			str += "b" + obj.route_number + "_" + obj.headsign_id;
 		}
 		return str;
+	};
+
+	BusList.prototype.getLength = function()
+	{
+	    return this.buses.length;
 	};
 
 	return {StopList: StopList, BusList: BusList};

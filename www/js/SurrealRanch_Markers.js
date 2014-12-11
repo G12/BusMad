@@ -139,8 +139,6 @@
 	    }
 	    if (navigator.geolocation)
 	    {
-	        document.getElementById("wait_msg").innerHTML = "Start Geolocation";
-	        document.getElementById("refresh_btn").className = "hide";
 	        navigator.geolocation.getCurrentPosition
 			(
 			    function (position) {
@@ -182,7 +180,7 @@
 		{
 			this.position = newPosition;
 			this.marker_.setPosition(this.position);
-			$('#json_text').val("NEW Latitude: " + position.coords.latitude);
+			console.log("NEW Latitude: " + position.coords.latitude);
 		}
 	};
 	

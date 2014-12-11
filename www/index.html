@@ -10,35 +10,73 @@
         <link href='http://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>
         <title>Bus Man</title>
         <style type="text/css">
+            #control_bar{
+                background-image:url("img/wallpaper.png");
+                background-repeat:no-repeat;
+                background-size:cover;
+                border-bottom: 1px solid black;
+            }
             #start_up_page{
+                background-image:url("img/wallpaper.png");
+                background-repeat:repeat;
                 height:800px;
+            }
+            .bar{
+                width:100%;
+                padding:2%;
+            }
+            .control_button{
+                display:inline-block;
+                border:1px solid black;
+                /*
+                padding-left:4px;
+                padding-right:4px;*/
+                margin-left:2%;
+                height:9%;
+                text-align:center;
+            }
+            #map_btn{
+                width:20%;
+            }
+            #home_btn{
+                width:20%;
+            }
+            #status_btn{
+                width:46%;
+            }
+            .number_input{
+                margin:2%;
+                display:inline-block;
+                width:43%;
             }
         </style>
     </head>
     <body>
 
-        <div id="wait_window"><img id="crawling_ant" alt="Busy!" src="img/crawling_ant.gif" />
-            <div class="bus_route" id="wait_msg">Page Loaded</div>
-            <button class="hide" id="cancel_wait">Cancel</button>
+        <div id="control_bar" class="bar">
+            <div id="home_btn" class="control_button">Home</div>
+            <div id="status_btn" class="control_button">Bus Status</div>
+            <div id="map_btn" class="control_button">Map</div>
         </div>
-        <div id="start_up_page" class="hide">
-            <p>You are presently off line and can not do much at this time.</p>
-            <p>Come back later when you have a network connection.</p>
-            <img src="img/QuiltingDreams.png" />
+        <div id="start_up_page">
+            <div id="application_status" class="bar"></div>
+            <div id="input_bar" class="bar">
+                <input id="stop_number" type="number" class="number_input" placeholder="Stop Number" />
+                <input id="bus_number" type="number" class="number_input" placeholder="Bus Number" />
+            </div>
+            <div class="bar">
+                <p>Enter a Stop and Bus number then tap Bus Status to get the arrival times for the next three buses.</p>
+                <p>Tap on Map to show bus stops in your vicinity. Tap on a Bus stop icon to get a list of buses servicing this stop.</p>
+                <p>Tap on Bus Status to get arrival information for buses you select from the list.</p>
+            </div>
         </div>
         <div id="map_canvas"></div>
         <div id="bus_list"></div>
         <div id="status_page">
-            <button id="map_btn">Back</button>
             <button id="refresh_btn">Refresh</button>
             <div id="status_list"></div>
         </div>
 
-        <!--
-        <div id="menu_bar" style="float:left">
-            <textarea id="json_text" style="height:400px; width:200px"></textarea>
-        </div>
-        -->
         <script src="js/jquery-2.1.1.min.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1InXxmyZWGfqX28lKs_FFlLziBNSGE0s&sensor=false&libraries=geometry"></script>
 

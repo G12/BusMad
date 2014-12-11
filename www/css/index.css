@@ -6,7 +6,7 @@
     display:block;
 }
     html, body{height: 100%; margin: 0; padding: 0;	}
-	#map_canvas { height: 100%;	}
+	#map_canvas { height: 93%;	}
 
 @media print
 {

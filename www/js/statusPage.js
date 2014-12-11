@@ -8,13 +8,14 @@ var statusPage = {
         this.status_page = document.getElementById(status_page_id);
         this.status_list = document.getElementById(status_list_id);
         document.getElementById(refresh_btn_id).addEventListener('click', this.onRefresh.bind(this), false);
-        document.getElementById(map_btn_id).addEventListener('click', this.onShowMap.bind(this), false);
+        //document.getElementById(map_btn_id).addEventListener('click', this.onShowMap.bind(this), false);
     },
     //Button clicks
     onRefresh: function()
     {
         this.updateList();
     },
+    /*
     onShowMap: function()
     {
         //Bad Bad does not work now Why?
@@ -22,9 +23,10 @@ var statusPage = {
         //alert("Notification Test!");
         //window.plugin.notification.local.add({ message: 'Great Bus app!', sound: 'TYPE_ALARM' });
         //alert("Test Done");
-        controller.showMap();
+        //controller.showMap();
         this.hidePage();
     },
+    */
     updateList: function()
     {
         var count = 0;
