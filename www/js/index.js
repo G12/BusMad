@@ -21,7 +21,10 @@ var map_initialized = false;
 var g_url = null;
 var g_platform = "UNKNOWN";
 
+var g_bus_list = "";
+
 var IS_DEBUG = false;
+var controller = null;
 
 $(document).ready(function ()
 {
@@ -47,6 +50,16 @@ $(document).ready(function ()
                 alert(status);
             }
         });
+        
+        document.getElementById("favourite_buttons").addEventListener('click', function (event)
+        {
+            var stop_id = event.target.dataset.stop;
+            var stop_code = event.target.dataset.stop_code;
+            busListPage.openBusListUsing(stop_id, stop_code, city_code);
+            //var test = event;
+            //var a = "Stop";
+        });
+
         //Open Home Page
         document.getElementById("home_btn").addEventListener('click', function ()
         {
@@ -70,10 +83,12 @@ $(document).ready(function ()
                 }
             }
             else {
-                startUpPage.setStopNumber(controller.getStopCodeFor(0));
-                if (controller.bus_list.getLength() == 1)
+                if(controller)
                 {
-                    startUpPage.setBusNumber(controller.getBusNumberFor(0));
+                    startUpPage.setStopNumber(controller.getStopCodeFor(0));
+                    if (controller.bus_list.getLength() == 1) {
+                        startUpPage.setBusNumber(controller.getBusNumberFor(0));
+                    }
                 }
             }
             startUpPage.openPage(HOME_PAGE);
@@ -81,7 +96,20 @@ $(document).ready(function ()
         //Open Status Page using current url
         document.getElementById("status_btn").addEventListener('click', function ()
         {
-            if (startUpPage.getCurrentPage() == HOME_PAGE)
+            if(busListPage.isSimple)
+            {
+                if (busListPage.busArray.length == 0) return;
+                startUpPage.setStopNumber(busListPage.busList);
+                startUpPage.setBusNumber("");
+                for (var i = 0; i < busListPage.busArray.length; i++)
+                {
+                    busListPage.busList += "b" + busListPage.busArray[i];
+                }
+                g_url = "http://geopad.ca/js/get_json_for.php?trips=" + busListPage.busList;
+                statusPage.makeList(g_url);
+                busListPage.isSimple = false;
+            }
+            else if (startUpPage.getCurrentPage() == HOME_PAGE)
             {
                 var stop = document.getElementById("stop_number").value;
                 var bus = document.getElementById("bus_number").value;

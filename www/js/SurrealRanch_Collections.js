@@ -183,6 +183,7 @@ var SurrealRanch_Collections = (function()
 
 	BusList.prototype.getStopCode = function (index)
 	{
+	    if (this.buses.length == 0) return "";
 	    if (this.buses.length > index && index >= 0)
 	    {
 	        var obj = this.buses[index];
@@ -193,6 +194,7 @@ var SurrealRanch_Collections = (function()
 
 	BusList.prototype.getBusNumber = function (index)
 	{
+	    if (this.buses.length == 0) return "";
 	    if (this.buses.length > index && index >= 0)
 	    {
 	        var obj = this.buses[index];

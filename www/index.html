@@ -28,10 +28,14 @@
             .control_button{
                 display:inline-block;
                 border:1px solid black;
-                /*
-                padding-left:4px;
-                padding-right:4px;*/
                 margin-left:2%;
+                height:9%;
+                text-align:center;
+            }
+            .fav_button{
+                display:inline-block;
+                border:1px solid black;
+                margin:2%;
                 height:9%;
                 text-align:center;
             }
@@ -49,6 +53,12 @@
                 display:inline-block;
                 width:43%;
             }
+            #favourite_buttons{
+               
+            }
+            #blab{
+                font-size:.7em;
+            }
         </style>
     </head>
     <body>
@@ -64,10 +74,20 @@
                 <input id="stop_number" type="number" class="number_input" placeholder="Stop Number" />
                 <input id="bus_number" type="number" class="number_input" placeholder="Bus Number" />
             </div>
-            <div class="bar">
+            <div id="blab" class="bar">
                 <p>Enter a Stop and Bus number then tap Bus Status to get the arrival times for the next three buses.</p>
                 <p>Tap on Map to show bus stops in your vicinity. Tap on a Bus stop icon to get a list of buses servicing this stop.</p>
                 <p>Tap on Bus Status to get arrival information for buses you select from the list.</p>
+                <p>When in the Map tap on Stops to add bus stops to the map window.</p>
+                <p>Double Tap on the map to add stops and zoom in to a specified area.</p>
+            </div>
+            <h2>Quick Buttons</h2>
+            <div id="favourite_buttons" class="bar">
+                <div class="fav_button" data-stop="SH900" data-stop_code="3017">Baseline</div>
+                <div class="fav_button" data-stop="CD920" data-stop_code="3009">Rideau Center</div>
+                <div class="fav_button" data-stop="CD910" data-stop_code="3000">Mckenzie King</div>
+                <div class="fav_button" data-stop="AF930" data-stop_code="3023">Hurdman</div>
+                <div class="fav_button" data-stop="SH155" data-stop_code="0707">Algonquin</div>
             </div>
         </div>
         <div id="map_canvas"></div>
