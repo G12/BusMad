@@ -45,6 +45,7 @@ $(document).ready(function ()
         google.maps.event.addListener(statusPage, 'make_status_done', function (status) {
             if (status == "SUCCESS") {
                 startUpPage.openPage(STATUS_PAGE);
+                statusPage.setSubmitButtonListeners();
             }
             else {
                 alert(status);

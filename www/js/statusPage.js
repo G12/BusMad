@@ -1,4 +1,6 @@
 var statusPage = {
+	bus_times: null,
+	btn_cnt: null,
     status_page: null,
     status_list: null,
     _url: null,
@@ -30,6 +32,8 @@ var statusPage = {
     updateList: function()
     {
         var count = 0;
+		 btn_cnt = 0;
+		 bus_times = [];
         console.log("url:" + this._url);
         $.get(this._url, {}, function (json)
         {
@@ -77,7 +81,16 @@ var statusPage = {
                                         var arrival = new Date(now.getTime() + tripForStop.AdjustedScheduleTime * 60000);
                                         arrivalTime = arrival.toLocaleTimeString();
                                     }
-                                    html += "<div class='bus_arrival'><h4>Arriving at: " + arrivalTime + "</h4><button>Set Timer</button></div><br/>";
+                                    html += "<div class='bus_arrival'><h4>Arriving at: " + arrivalTime + "</h4>";
+									
+									if(g_platform.toLowerCase() == "android"){
+										html += "<input id='timer_input_"+ btn_cnt +"' class='timer_input' type='text' name='timer' value='10'>";
+										html += "<input id='timer_btn_"+ btn_cnt +"' type='submit' value='set timer'></div><br/>";
+									}
+								
+									bus_times[btn_cnt] = arrival;
+									
+									btn_cnt++;
                                 }
                             }
                         }
@@ -85,6 +98,7 @@ var statusPage = {
 
                 }
                 html += "</div>";
+				
             }
             html += "</div>";
             statusPage.status_list.innerHTML = html;
@@ -94,6 +108,7 @@ var statusPage = {
             this.errMsg = "Ajax Error: " + e.statusText;
             google.maps.event.trigger(statusPage, "make_status_done", this.errMsg);
         });
+		
     },
     makeList: function (url)
     {
@@ -107,6 +122,25 @@ var statusPage = {
     hidePage: function()
     {
         this.status_page.className = "hide";
-    }
+    },
+	setSubmitButtonListeners: function()
+	{
+		//alert(cnt);
+		
+		for(var i = 0; i< btn_cnt; i++)
+		{
+			//time = bus_times[i];
+			document.getElementById('timer_btn_'+ i).addEventListener('click', statusPage.addFunctionToListeners(bus_times[i],i), false);
+		}
+	},
+	addFunctionToListeners: function(time,i){
+		return function(){
+			notificationPage.setTimer(time,i);
+		}
+	},
+	getInputTime: function(btn){
+		return document.getElementById('timer_input_'+ btn).value;
+	}
+	
 };
 
